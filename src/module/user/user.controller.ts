@@ -44,6 +44,6 @@ export class UserController {
 
   @Post('login')
   async login(@Body() body: LoginDto) {
-    return this.userService.login(body.user_name, body.password);
+    return this.userService.login(body.email, body.password);
   }
 }

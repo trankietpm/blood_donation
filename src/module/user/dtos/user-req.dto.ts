@@ -1,11 +1,8 @@
 import { BloodType } from '../../common/enums/blood-type.enum';
 import { UserRole } from '../../common/enums/user-role.enum';
-import { IsString, IsEmail, IsEnum, IsBoolean, IsOptional, Matches, IsNumber } from 'class-validator';
+import { IsString, IsEmail, IsEnum, IsOptional, Matches, IsNumber } from 'class-validator';
 
 export class UserReqDto {
-  @IsString()
-  user_name: string;    
-
   @IsString()
   password: string;
 
@@ -25,9 +22,18 @@ export class UserReqDto {
   @IsEnum(UserRole)
   role: UserRole;
 
-  @IsBoolean()
-  is_ready_to_donate: boolean;
+  @IsOptional()
+  @IsString()
+  address?: string;
 
   @IsOptional()
-  last_donation_date?: Date;
+  @IsEnum(['male', 'female', 'other'])
+  gender?: 'male' | 'female' | 'other';
+
+  @IsOptional()
+  birthday?: Date;
+
+  @IsOptional()
+  @IsString()
+  avatar_image?: string;
 }

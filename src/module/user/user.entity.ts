@@ -8,9 +8,6 @@ export class User {
   user_id: number;
 
   @Column({ type: 'varchar', length: 255 })
-  user_name: string;
-
-  @Column({ type: 'varchar', length: 255 })
   password: string;
 
   @Column({ type: 'varchar', length: 255 })
@@ -28,9 +25,15 @@ export class User {
   @Column({ type: 'enum', enum: UserRole })
   role: UserRole;
 
-  @Column({ type: 'boolean', default: false })
-  is_ready_to_donate: boolean;
+  @Column({ type: 'varchar', length: 255, nullable: true })
+  address: string;
+
+  @Column({ type: 'enum', enum: ['male', 'female', 'other'], nullable: true })
+  gender: 'male' | 'female' | 'other';
 
   @Column({ type: 'date', nullable: true })
-  last_donation_date: Date;
+  birthday: Date;
+
+  @Column({ type: 'varchar', length: 255, nullable: true })
+  avatar_image: string;
 }

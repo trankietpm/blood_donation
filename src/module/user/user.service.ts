@@ -39,21 +39,19 @@ export class UserService {
 
   async register(userReqDto: UserReqDto): Promise<{ message: string }> {
     const existingEmail = await this.userRepository.findOne({ where: { email: userReqDto.email } });
-    if (existingEmail) throw new BadRequestException('Email already exists');
-    const existingUserName = await this.userRepository.findOne({ where: { user_name: userReqDto.user_name } });
-    if (existingUserName) throw new BadRequestException('Username already exists');
+    if (existingEmail) throw new BadRequestException('Email đã tồn tại');
 
     const token = randomBytes(32).toString('hex');
     pendingUsers.set(token, userReqDto);
 
-    const confirmUrl = `http://localhost:3123/user/confirm/${token}`;
+    const confirmUrl = `http://localhost:5173/xac-thuc/${token}`;
     await this.mailService.sendMail(
       userReqDto.email,
       'Xác nhận đăng ký tài khoản BloodCareSystem',
       `
       <div style="font-family: Arial, sans-serif; max-width: 480px; margin: auto; border: 1px solid #eee; border-radius: 8px; padding: 24px;">
         <div style="text-align: center;">
-          <img src="https://tinypic.host/images/2025/06/03/logo.png" alt="BloodCareSystem" width="120" style="margin-bottom: 16px;" />
+          <img src="https://tinypic.host/images/2025/06/15/logo.png" alt="BloodCareSystem" width="120" style="margin-bottom: 16px;" />
           <h2 style="color: #d32f2f;">Chào mừng bạn đến với BloodCareSystem!</h2>
         </div>
         <p>Xin chào <b>${userReqDto.full_name}</b>,</p>
@@ -88,20 +86,24 @@ export class UserService {
     const user = this.userRepository.create({
       ...userReqDto,
       phone_number: userReqDto.phone_number ? Number(userReqDto.phone_number) : undefined,
+      address: userReqDto.address,
+      gender: userReqDto.gender,
+      birthday: userReqDto.birthday,
+      avatar_image: userReqDto.avatar_image,
     });
     await this.userRepository.save(user);
 
     return { message: 'Đăng ký thành công!' };
   }
 
-  async login(user_name: string, password: string): Promise<{ message: string, user?: User }> {
-    const user = await this.userRepository.findOne({ where: { user_name } });
+  async login(email: string, password: string): Promise<{ message: string, user?: User }> {
+    const user = await this.userRepository.findOne({ where: { email } });
     if (!user) {
-      return { message: 'Tên đăng nhập hoặc mật khẩu không đúng' };
+      return { message: 'Email hoặc mật khẩu không đúng' };
     }
 
     if (user.password !== password) {
-      return { message: 'Tên đăng nhập hoặc mật khẩu không đúng' };
+      return { message: 'Email hoặc mật khẩu không đúng' };
     }
 
     return { message: 'Đăng nhập thành công', user };

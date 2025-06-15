@@ -7,4 +7,5 @@ export enum BloodType {
     AB_NEG = 'AB-',
     O_POS = 'O+',
     O_NEG = 'O-',
+    None = 'None',
   }
