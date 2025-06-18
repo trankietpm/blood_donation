@@ -6,6 +6,7 @@ import { UserReqDto } from './dtos/user-req.dto';
 import { pendingUsers } from './pending-user.store';
 import { randomBytes } from 'crypto';
 import { MailService } from './mail.service';
+import { UserRole } from '../common/enums/user-role.enum';
 
 @Injectable()
 export class UserService {
@@ -85,6 +86,7 @@ export class UserService {
 
     const user = this.userRepository.create({
       ...userReqDto,
+      role: UserRole.MEMBER,
       phone_number: userReqDto.phone_number ? Number(userReqDto.phone_number) : undefined,
       address: userReqDto.address,
       gender: userReqDto.gender,

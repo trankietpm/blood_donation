@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './module/user/user.module';
-import { BloodRequestModule } from './module/blood_request/blood_request.module';
+import { BloodDonationCampaignModule } from './module/blood-donation-campaign/blood-donation-campaign.module';
 
 
 @Module({
@@ -19,7 +19,7 @@ import { BloodRequestModule } from './module/blood_request/blood_request.module'
       synchronize: true, 
     }),
     UserModule,
-    BloodRequestModule,
+    BloodDonationCampaignModule,
   ],
 })
 export class AppModule {}

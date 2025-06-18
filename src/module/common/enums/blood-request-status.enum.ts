@@ -1,6 +1,5 @@
 export enum BloodRequestStatus {
-  Pending = 'Pending',
-  Matched = 'Matched',
-  Fulfilled = 'Fulfilled',
-  Cancelled = 'Cancelled',
+  ONGOING = 'Đang diễn ra',
+  UPCOMING = 'Sắp diễn ra',
+  ENDED = 'Đã kết thúc',
 } 
