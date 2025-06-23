@@ -7,6 +7,7 @@ import { pendingUsers } from './pending-user.store';
 import { randomBytes } from 'crypto';
 import { MailService } from './mail.service';
 import { UserRole } from '../common/enums/user-role.enum';
+import { BloodType } from '../common/enums/blood-type.enum';
 
 @Injectable()
 export class UserService {
@@ -87,11 +88,12 @@ export class UserService {
     const user = this.userRepository.create({
       ...userReqDto,
       role: UserRole.MEMBER,
-      phone_number: userReqDto.phone_number ? Number(userReqDto.phone_number) : undefined,
+      phone_number: userReqDto.phone_number,
       address: userReqDto.address,
       gender: userReqDto.gender,
       birthday: userReqDto.birthday,
       avatar_image: userReqDto.avatar_image,
+      blood_type: userReqDto.blood_type || BloodType.None,
     });
     await this.userRepository.save(user);
 

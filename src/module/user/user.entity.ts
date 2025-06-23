@@ -16,8 +16,8 @@ export class User {
   @Column({ type: 'varchar', length: 255 })
   email: string;
 
-  @Column({ type: 'int' })
-  phone_number: number;
+  @Column({ type: 'varchar', length: 20 })
+  phone_number: string;
 
   @Column({ type: 'enum', enum: BloodType })
   blood_type: BloodType;

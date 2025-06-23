@@ -3,7 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './module/user/user.module';
 import { BloodDonationCampaignModule } from './module/blood-donation-campaign/blood-donation-campaign.module';
-
+import { CampaignRegistrationModule } from './module/campaign-registration/campaign-registration.module.ts';
 
 @Module({
   imports: [
@@ -20,6 +20,7 @@ import { BloodDonationCampaignModule } from './module/blood-donation-campaign/bl
     }),
     UserModule,
     BloodDonationCampaignModule,
+    CampaignRegistrationModule,
   ],
 })
 export class AppModule {}

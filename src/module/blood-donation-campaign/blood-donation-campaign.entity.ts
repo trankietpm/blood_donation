@@ -1,5 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable } from 'typeorm';
-import { User } from '../user/user.entity';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { CampaignRegistration } from '../campaign-registration/campaign-registration.entity';
 
 @Entity('blood_donation_campaign')
 export class BloodDonationCampaign {
@@ -21,17 +21,6 @@ export class BloodDonationCampaign {
   @Column({ type: 'int', default: 0 })
   max: number;
 
-  @ManyToMany(() => User)
-  @JoinTable({
-    name: 'campaign_user',
-    joinColumn: {
-      name: 'campaign_id',
-      referencedColumnName: 'id'
-    },
-    inverseJoinColumn: {
-      name: 'user_id',
-      referencedColumnName: 'user_id'
-    }
-  })
-  registeredUsers: User[];
+  @OneToMany(() => CampaignRegistration, reg => reg.campaign)
+  registrations: CampaignRegistration[];
 }
