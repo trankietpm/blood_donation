@@ -5,7 +5,7 @@ export class UserResDto {
   user_id: number;
   full_name: string;
   email: string;
-  phone_number: number;
+  phone_number: string;
   blood_type: BloodType;
   role: UserRole;
   address?: string;
